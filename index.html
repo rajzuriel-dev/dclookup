@@ -187,45 +187,33 @@ input,
 /* Cursor light */
 
 .cursor-light{
-
     position:fixed;
 
-    width:350px;
-
-    height:350px;
+    width:500px;
+    height:500px;
 
     border-radius:50%;
 
-
-    background:
-
-    radial-gradient(
-
-    circle,
-
-    rgba(255,255,255,.3),
-
-    transparent 70%
-
-    );
-
-
     pointer-events:none;
 
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.45),
+            rgba(150,200,255,.18) 25%,
+            transparent 70%
+        );
 
-    filter:blur(30px);
+    filter:blur(40px);
 
+    transform:translate(-50%,-50%);
 
-    transform:
+    z-index:1;
 
-    translate(-50%,-50%);
+    mix-blend-mode:screen;
 
-
-    z-index:0;
-
+    opacity:.8;
 }
-
-
 
 /* Better mobile support */
 
