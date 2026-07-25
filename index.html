@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Discord Lookup</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -12,148 +17,383 @@
     box-sizing:border-box;
 }
 
+:root{
+    --bg:#090B14;
+    --card:rgba(20,23,35,.78);
+    --border:rgba(255,255,255,.08);
+    --primary:#5865F2;
+    --primary2:#7C89FF;
+    --text:#F2F3F5;
+    --muted:#A9AFBF;
+    --success:#57F287;
+}
+
 body{
-    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    font-family:"Inter",sans-serif;
+    color:var(--text);
     min-height:100vh;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
     background:
-        radial-gradient(circle at top,#5865F2 0%,#313338 35%,#1E1F22 100%);
-    color:white;
+        radial-gradient(circle at 20% 20%,#2538c966 0%,transparent 30%),
+        radial-gradient(circle at 80% 30%,#8b5cf655 0%,transparent 35%),
+        radial-gradient(circle at 40% 90%,#00d4ff33 0%,transparent 35%),
+        linear-gradient(160deg,#080a12,#0f1220,#0a0d18);
 }
 
-.container{
-    width:100%;
-    max-width:430px;
-    padding:30px;
-    border-radius:20px;
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.35);
-    animation:fade .5s ease;
+/* Animated glowing blobs */
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.5;
+    animation:float 16s ease-in-out infinite;
 }
 
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
+.blob:nth-child(1){
+    width:350px;
+    height:350px;
+    background:#5865F2;
+    left:-80px;
+    top:-80px;
 }
 
-h2{
-    text-align:center;
-    margin-bottom:8px;
-    font-size:28px;
+.blob:nth-child(2){
+    width:280px;
+    height:280px;
+    background:#7C3AED;
+    right:-60px;
+    top:120px;
+    animation-delay:-5s;
+}
+
+.blob:nth-child(3){
+    width:220px;
+    height:220px;
+    background:#00D4FF;
+    bottom:-60px;
+    left:45%;
+    animation-delay:-10s;
+}
+
+@keyframes float{
+
+0%,100%{
+transform:translate(0,0);
+}
+
+50%{
+transform:translate(40px,-35px);
+}
+
+}
+
+.card{
+
+position:relative;
+z-index:2;
+
+width:min(92vw,480px);
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:28px;
+
+padding:40px;
+
+backdrop-filter:blur(24px);
+
+box-shadow:
+0 25px 80px rgba(0,0,0,.45),
+0 0 0 1px rgba(255,255,255,.03) inset;
+
+animation:appear .7s cubic-bezier(.18,.89,.32,1.28);
+
+}
+
+@keyframes appear{
+
+from{
+opacity:0;
+transform:translateY(30px) scale(.96);
+}
+
+}
+
+.logo{
+
+width:76px;
+height:76px;
+
+margin:auto;
+
+border-radius:22px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:40px;
+
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+
+box-shadow:
+0 0 40px rgba(88,101,242,.45);
+
+animation:pulse 4s infinite;
+
+}
+
+@keyframes pulse{
+
+50%{
+box-shadow:
+0 0 65px rgba(88,101,242,.7);
+}
+
+}
+
+h1{
+
+margin-top:22px;
+
+font-size:34px;
+
+font-weight:800;
+
+text-align:center;
+
 }
 
 .subtitle{
-    text-align:center;
-    color:#b5bac1;
-    margin-bottom:28px;
-    font-size:14px;
+
+text-align:center;
+
+margin-top:10px;
+
+color:var(--muted);
+
+font-size:15px;
+
+line-height:1.6;
+
+margin-bottom:35px;
+
 }
 
 label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
+
+display:block;
+
+margin-bottom:10px;
+
+font-weight:600;
+
 }
 
-input{
-    width:100%;
-    padding:14px;
-    font-size:15px;
-    border-radius:12px;
-    border:1px solid #444;
-    background:#2B2D31;
-    color:white;
-    outline:none;
-    transition:.2s;
+.inputBox{
+
+position:relative;
+
 }
 
-input:focus{
-    border-color:#5865F2;
-    box-shadow:0 0 0 4px rgba(88,101,242,.25);
+.inputBox input{
+
+width:100%;
+
+padding:17px 18px;
+
+padding-left:48px;
+
+background:#161925;
+
+border:2px solid #25293a;
+
+border-radius:16px;
+
+color:white;
+
+font-size:16px;
+
+transition:.25s;
+
+}
+
+.inputBox input::placeholder{
+
+color:#7d8495;
+
+}
+
+.inputBox input:focus{
+
+outline:none;
+
+border-color:var(--primary);
+
+box-shadow:
+0 0 0 6px rgba(88,101,242,.15);
+
+}
+
+.inputBox span{
+
+position:absolute;
+
+left:18px;
+top:50%;
+
+transform:translateY(-50%);
+
+font-size:18px;
+
+opacity:.8;
+
 }
 
 button{
-    width:100%;
-    margin-top:16px;
-    padding:14px;
-    font-size:16px;
-    font-weight:600;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    background:#5865F2;
-    color:white;
-    transition:.25s;
+
+width:100%;
+
+margin-top:22px;
+
+padding:16px;
+
+border:none;
+
+border-radius:16px;
+
+cursor:pointer;
+
+font-size:16px;
+
+font-weight:700;
+
+color:white;
+
+background:linear-gradient(135deg,#5865F2,#7380FF);
+
+transition:.25s;
+
+box-shadow:
+0 10px 30px rgba(88,101,242,.35);
+
 }
 
 button:hover{
-    background:#6D79FF;
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(88,101,242,.35);
+
+transform:translateY(-3px);
+
+box-shadow:
+0 20px 45px rgba(88,101,242,.5);
+
 }
 
 button:active{
-    transform:translateY(0);
+
+transform:scale(.98);
+
 }
 
 #result{
-    margin-top:22px;
-    padding:15px;
-    border-radius:12px;
-    background:#202225;
-    border-left:4px solid #5865F2;
-    white-space:pre-line;
-    line-height:1.6;
-    min-height:60px;
-    word-break:break-word;
-    color:#dcddde;
+
+margin-top:30px;
+
+padding:22px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.03);
+
+border:1px solid rgba(255,255,255,.06);
+
+line-height:1.8;
+
+white-space:pre-line;
+
+min-height:95px;
+
+transition:.3s;
+
 }
 
 .footer{
-    margin-top:18px;
-    text-align:center;
-    color:#888;
-    font-size:12px;
+
+margin-top:22px;
+
+text-align:center;
+
+font-size:13px;
+
+color:#7d8495;
+
+}
+
+.grid{
+
+position:absolute;
+inset:0;
+pointer-events:none;
+opacity:.06;
+background-image:
+linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px);
+background-size:40px 40px;
+
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="blob"></div>
+<div class="blob"></div>
+<div class="blob"></div>
 
-<h2>Discord ID Lookup</h2>
-<p class="subtitle">Find when a Discord Snowflake was created.</p>
+<div class="grid"></div>
 
-<label for="snowflake">Discord ID</label>
+<div class="card">
+
+<div class="logo">
+💬
+</div>
+
+<h1>Discord Lookup</h1>
+
+<p class="subtitle">
+Instantly discover when a Discord account or message ID was created.
+</p>
+
+<label>Discord Snowflake</label>
+
+<div class="inputBox">
+
+<span>🆔</span>
 
 <input
 type="text"
 id="snowflake"
-placeholder="e.g. 1488489535221268563"
-onkeydown="if(event.key==='Enter') checkDate()">
+placeholder="1488489535221268563"
+onkeydown="if(event.key==='Enter')checkDate()">
+
+</div>
 
 <button onclick="checkDate()">
-🔍 Find Date
+✨ Find Creation Date
 </button>
 
 <div id="result">
-Enter a Discord ID above.
+Waiting for a Discord ID...
 </div>
 
 <div class="footer">
-Discord Snowflakes contain the account creation timestamp.
+Powered by Discord Snowflake timestamps
 </div>
 
 </div>
@@ -179,8 +419,11 @@ function checkDate() {
         }
 
         resultDiv.innerText =
-`UTC: ${date.toUTCString()}
-Local: ${date.toLocaleString()}`;
+`📅 UTC
+${date.toUTCString()}
+
+🌍 Local Time
+${date.toLocaleString()}`;
 
     } catch (error) {
         resultDiv.innerText = "Error processing ID.";
