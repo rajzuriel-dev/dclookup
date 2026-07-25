@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Lookup</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        #result { font-weight: bold; margin-top: 15px; white-space: pre-line; }
+    </style>
+</head>
+<body>
+
+    <h2>Discord ID Date Checker</h2>
+    <label for="snowflake">Enter Discord ID:</label>
+    <input type="text" id="snowflake" placeholder="e.g., 1488489535221268563">
+    <button onclick="checkDate()">Find Date</button>
+
+    <div id="result"></div>
+
+    <script>
+        function checkDate() {
+            const input = document.getElementById('snowflake').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            // Validate input is numbers only
+            if (!/^\d+$/.test(input)) {
+                resultDiv.innerText = "Please enter a valid numeric ID.";
+                return;
+            }
+
+            try {
+                const snowflake = BigInt(input);
+                const timestampMs = Number((snowflake >> 22n) + 1420070400000n);
+                const date = new Date(timestampMs);
+
+                // Check if date is valid
+                if (isNaN(date.getTime())) {
+                    resultDiv.innerText = "Invalid Discord ID.";
+                    return;
+                }
+
+                resultDiv.innerText = `UTC: ${date.toUTCString()}\nLocal: ${date.toLocaleString()}`;
+            } catch (error) {
+                resultDiv.innerText = "Error processing ID.";
+            }
+        }
+    </script>
+
+</body>
+</html>
