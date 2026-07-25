@@ -9,8 +9,248 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+/* =========================
+   FINAL TAHOE POLISH
+   ========================= */
 
+
+/* Aurora color movement */
+
+body{
+
+    animation:
+    backgroundShift 20s ease-in-out infinite;
+
+}
+
+
+@keyframes backgroundShift{
+
+    0%,100%{
+
+        background-position:
+        0% 0%;
+
+    }
+
+
+    50%{
+
+        background-position:
+        100% 100%;
+
+    }
+
+}
+
+
+
+/* Glass particles */
+
+.particle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:
+
+    rgba(255,255,255,.25);
+
+    border:
+
+    1px solid rgba(255,255,255,.5);
+
+
+    backdrop-filter:blur(10px);
+
+
+    animation:
+
+    drift linear infinite;
+
+
+    pointer-events:none;
+
+}
+
+
+
+@keyframes drift{
+
+
+    from{
+
+        transform:
+        translateY(110vh)
+        rotate(0deg);
+
+    }
+
+
+    to{
+
+        transform:
+        translateY(-20vh)
+        rotate(360deg);
+
+    }
+
+}
+
+
+
+/* More realistic window depth */
+
+
+.window{
+
+    transition:
+
+    transform .4s cubic-bezier(.2,.8,.2,1),
+
+    box-shadow .4s ease;
+
+
+}
+
+
+
+.window:hover{
+
+    box-shadow:
+
+
+    inset 0 1px rgba(255,255,255,.9),
+
+
+    0 40px 120px rgba(0,0,0,.25);
+
+}
+
+
+
+/* macOS style smooth text */
+
+h1,
+.subtitle,
+label,
+button,
+input,
+#result{
+
+    letter-spacing:-0.02em;
+
+}
+
+
+
+/* Result appearance animation */
+
+#result{
+
+    animation:
+
+    resultAppear .5s ease;
+
+}
+
+
+@keyframes resultAppear{
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+        translateY(10px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+        translateY(0);
+
+    }
+
+}
+
+
+
+/* Cursor light */
+
+.cursor-light{
+
+    position:fixed;
+
+    width:350px;
+
+    height:350px;
+
+    border-radius:50%;
+
+
+    background:
+
+    radial-gradient(
+
+    circle,
+
+    rgba(255,255,255,.3),
+
+    transparent 70%
+
+    );
+
+
+    pointer-events:none;
+
+
+    filter:blur(30px);
+
+
+    transform:
+
+    translate(-50%,-50%);
+
+
+    z-index:0;
+
+}
+
+
+
+/* Better mobile support */
+
+@media(max-width:600px){
+
+    .window{
+
+        width:94vw;
+
+        padding:18px;
+
+        border-radius:26px;
+
+    }
+
+
+    h1{
+
+        font-size:28px;
+
+    }
+
+}
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -18,361 +258,245 @@
 }
 
 :root{
-    --bg:#090B14;
-    --card:rgba(20,23,35,.78);
-    --border:rgba(255,255,255,.08);
-    --primary:#5865F2;
-    --primary2:#7C89FF;
-    --text:#F2F3F5;
-    --muted:#A9AFBF;
-    --success:#57F287;
+    --glass:rgba(255,255,255,.18);
+    --glass-border:rgba(255,255,255,.45);
+    --text:#111;
+    --muted:#555;
 }
 
 body{
-    font-family:"Inter",sans-serif;
-    color:var(--text);
+
     min-height:100vh;
-    overflow:hidden;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    overflow:hidden;
+
+    font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+
+    color:var(--text);
+
     background:
-        radial-gradient(circle at 20% 20%,#2538c966 0%,transparent 30%),
-        radial-gradient(circle at 80% 30%,#8b5cf655 0%,transparent 35%),
-        radial-gradient(circle at 40% 90%,#00d4ff33 0%,transparent 35%),
-        linear-gradient(160deg,#080a12,#0f1220,#0a0d18);
+
+    radial-gradient(
+        circle at 15% 20%,
+        #9de5ff,
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 85% 15%,
+        #bca8ff,
+        transparent 35%
+    ),
+
+    radial-gradient(
+        circle at 75% 85%,
+        #8affdb,
+        transparent 35%
+    ),
+
+    radial-gradient(
+        circle at 20% 85%,
+        #ffc5df,
+        transparent 35%
+    ),
+
+    linear-gradient(
+        180deg,
+        #eef8ff,
+        #cfe4ff
+    );
+
 }
 
-/* Animated glowing blobs */
 
-.blob{
-    position:absolute;
+/* macOS style window */
+
+.window{
+
+    width:min(92vw,480px);
+
+    border-radius:32px;
+
+    position:relative;
+
+    padding:24px;
+
+    background:var(--glass);
+
+    border:1px solid var(--glass-border);
+
+    backdrop-filter:
+    blur(40px)
+    saturate(180%);
+
+    -webkit-backdrop-filter:
+    blur(40px)
+    saturate(180%);
+
+
+    box-shadow:
+
+    inset 0 1px 1px rgba(255,255,255,.8),
+
+    0 30px 90px rgba(0,0,0,.2);
+
+}
+
+
+/* macOS traffic lights */
+
+.titlebar{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+.light{
+
+    width:14px;
+    height:14px;
+
     border-radius:50%;
-    filter:blur(80px);
-    opacity:.5;
-    animation:float 16s ease-in-out infinite;
-}
-
-.blob:nth-child(1){
-    width:350px;
-    height:350px;
-    background:#5865F2;
-    left:-80px;
-    top:-80px;
-}
-
-.blob:nth-child(2){
-    width:280px;
-    height:280px;
-    background:#7C3AED;
-    right:-60px;
-    top:120px;
-    animation-delay:-5s;
-}
-
-.blob:nth-child(3){
-    width:220px;
-    height:220px;
-    background:#00D4FF;
-    bottom:-60px;
-    left:45%;
-    animation-delay:-10s;
-}
-
-@keyframes float{
-
-0%,100%{
-transform:translate(0,0);
-}
-
-50%{
-transform:translate(40px,-35px);
-}
 
 }
 
-.card{
 
-position:relative;
-z-index:2;
+.red{
+    background:#ff5f57;
+}
 
-width:min(92vw,480px);
+.yellow{
+    background:#febc2e;
+}
 
-background:var(--card);
+.green{
+    background:#28c840;
+}
 
-border:1px solid var(--border);
 
-border-radius:28px;
+/* Content */
 
-padding:40px;
+.content{
 
-backdrop-filter:blur(24px);
-
-box-shadow:
-0 25px 80px rgba(0,0,0,.45),
-0 0 0 1px rgba(255,255,255,.03) inset;
-
-animation:appear .7s cubic-bezier(.18,.89,.32,1.28);
+    padding:10px;
 
 }
 
-@keyframes appear{
-
-from{
-opacity:0;
-transform:translateY(30px) scale(.96);
-}
-
-}
 
 .logo{
 
-width:76px;
-height:76px;
+    width:80px;
+    height:80px;
 
-margin:auto;
+    margin:auto;
 
-border-radius:22px;
+    display:flex;
 
-display:flex;
-justify-content:center;
-align-items:center;
+    align-items:center;
 
-font-size:40px;
+    justify-content:center;
 
-background:linear-gradient(135deg,var(--primary),var(--primary2));
+    font-size:40px;
 
-box-shadow:
-0 0 40px rgba(88,101,242,.45);
+    border-radius:25px;
 
-animation:pulse 4s infinite;
+    background:
 
-}
-
-@keyframes pulse{
-
-50%{
-box-shadow:
-0 0 65px rgba(88,101,242,.7);
-}
+    rgba(255,255,255,.3);
 
 }
+
 
 h1{
 
-margin-top:22px;
+    text-align:center;
 
-font-size:34px;
+    margin-top:20px;
 
-font-weight:800;
+    font-size:34px;
 
-text-align:center;
+    font-weight:800;
 
 }
+
 
 .subtitle{
 
-text-align:center;
+    text-align:center;
 
-margin-top:10px;
+    margin-top:10px;
 
-color:var(--muted);
-
-font-size:15px;
-
-line-height:1.6;
-
-margin-bottom:35px;
+    color:var(--muted);
 
 }
 
-label{
 
-display:block;
-
-margin-bottom:10px;
-
-font-weight:600;
-
-}
-
-.inputBox{
-
-position:relative;
-
-}
-
-.inputBox input{
-
-width:100%;
-
-padding:17px 18px;
-
-padding-left:48px;
-
-background:#161925;
-
-border:2px solid #25293a;
-
-border-radius:16px;
-
-color:white;
-
-font-size:16px;
-
-transition:.25s;
-
-}
-
-.inputBox input::placeholder{
-
-color:#7d8495;
-
-}
-
-.inputBox input:focus{
-
-outline:none;
-
-border-color:var(--primary);
-
-box-shadow:
-0 0 0 6px rgba(88,101,242,.15);
-
-}
-
-.inputBox span{
-
-position:absolute;
-
-left:18px;
-top:50%;
-
-transform:translateY(-50%);
-
-font-size:18px;
-
-opacity:.8;
-
-}
-
-button{
-
-width:100%;
-
-margin-top:22px;
-
-padding:16px;
-
-border:none;
-
-border-radius:16px;
-
-cursor:pointer;
-
-font-size:16px;
-
-font-weight:700;
-
-color:white;
-
-background:linear-gradient(135deg,#5865F2,#7380FF);
-
-transition:.25s;
-
-box-shadow:
-0 10px 30px rgba(88,101,242,.35);
-
-}
-
-button:hover{
-
-transform:translateY(-3px);
-
-box-shadow:
-0 20px 45px rgba(88,101,242,.5);
-
-}
-
-button:active{
-
-transform:scale(.98);
-
-}
-
-#result{
-
-margin-top:30px;
-
-padding:22px;
-
-border-radius:18px;
-
-background:rgba(255,255,255,.03);
-
-border:1px solid rgba(255,255,255,.06);
-
-line-height:1.8;
-
-white-space:pre-line;
-
-min-height:95px;
-
-transition:.3s;
-
-}
-
-.footer{
-
-margin-top:22px;
-
-text-align:center;
-
-font-size:13px;
-
-color:#7d8495;
-
-}
-
-.grid{
-
-position:absolute;
-inset:0;
-pointer-events:none;
-opacity:.06;
-background-image:
-linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),
-linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px);
-background-size:40px 40px;
-
-}
 </style>
 
 </head>
 
+
 <body>
 
-<div class="blob"></div>
-<div class="blob"></div>
-<div class="blob"></div>
 
-<div class="grid"></div>
+<div class="window">
 
-<div class="card">
+
+<div class="titlebar">
+
+<div class="light red"></div>
+<div class="light yellow"></div>
+<div class="light green"></div>
+
+</div>
+
+
+<div class="content">
+
+
+<div class="content">
+
 
 <div class="logo">
 💬
 </div>
 
-<h1>Discord Lookup</h1>
+
+<h1>
+Discord Lookup
+</h1>
+
 
 <p class="subtitle">
-Instantly discover when a Discord account or message ID was created.
+Find Discord Snowflake creation dates instantly.
 </p>
 
-<label>Discord Snowflake</label>
 
-<div class="inputBox">
+<div class="form">
+
+
+<label>
+Discord Snowflake ID
+</label>
+
+
+<div class="input-wrapper">
 
 <span>🆔</span>
 
@@ -384,52 +508,614 @@ onkeydown="if(event.key==='Enter')checkDate()">
 
 </div>
 
+
+
 <button onclick="checkDate()">
+
 ✨ Find Creation Date
+
 </button>
 
+
+
 <div id="result">
+
 Waiting for a Discord ID...
-</div>
-
-<div class="footer">
-Powered by Discord Snowflake timestamps
-</div>
 
 </div>
 
-<script>
-function checkDate() {
-    const input = document.getElementById('snowflake').value.trim();
-    const resultDiv = document.getElementById('result');
 
-    if (!/^\d+$/.test(input)) {
-        resultDiv.innerText = "Please enter a valid numeric ID.";
-        return;
-    }
+</div>
 
-    try {
-        const snowflake = BigInt(input);
-        const timestampMs = Number((snowflake >> 22n) + 1420070400000n);
-        const date = new Date(timestampMs);
 
-        if (isNaN(date.getTime())) {
-            resultDiv.innerText = "Invalid Discord ID.";
-            return;
-        }
+</div>
 
-        resultDiv.innerText =
-`📅 UTC
-${date.toUTCString()}
 
-🌍 Local Time
-${date.toLocaleString()}`;
+</div>
 
-    } catch (error) {
-        resultDiv.innerText = "Error processing ID.";
-    }
-}
-</script>
 
 </body>
 </html>
+/* =========================
+   LIQUID GLASS EFFECTS
+   ========================= */
+
+
+/* Glass reflection layer */
+
+.window::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:32px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.55),
+        transparent 35%
+    );
+
+    pointer-events:none;
+
+    opacity:.45;
+
+}
+
+
+/* Bottom glass shadow depth */
+
+.window::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:2px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    pointer-events:none;
+
+}
+
+
+/* Floating glass lighting */
+
+.window{
+
+    animation:
+
+    windowFloat 8s ease-in-out infinite;
+
+}
+
+
+@keyframes windowFloat{
+
+    0%,100%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+}
+
+
+
+/* Glossy icon */
+
+.logo{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:
+
+    1px solid rgba(255,255,255,.55);
+
+    box-shadow:
+
+    inset 0 2px 5px rgba(255,255,255,.6),
+
+    0 15px 35px rgba(0,0,0,.15);
+
+
+}
+
+
+/* Moving shine on icon */
+
+.logo::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:80px;
+
+    height:160px;
+
+    background:
+
+    linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        rgba(255,255,255,.8),
+
+        transparent
+
+    );
+
+
+    transform:
+
+    rotate(25deg)
+
+    translateX(-120px);
+
+
+    animation:
+
+    shine 5s infinite;
+
+}
+
+
+
+@keyframes shine{
+
+    0%{
+
+        transform:
+
+        rotate(25deg)
+
+        translateX(-120px);
+
+    }
+
+
+    30%,100%{
+
+        transform:
+
+        rotate(25deg)
+
+        translateX(120px);
+
+    }
+
+}
+
+
+
+/* Better title depth */
+
+h1{
+
+    text-shadow:
+
+    0 2px 12px rgba(255,255,255,.35);
+
+}
+
+
+
+/* Background moving light */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+
+    height:700px;
+
+    border-radius:50%;
+
+
+    background:
+
+    radial-gradient(
+
+        circle,
+
+        rgba(255,255,255,.5),
+
+        transparent 65%
+
+    );
+
+
+    top:-250px;
+
+    left:-200px;
+
+
+    filter:blur(40px);
+
+
+    animation:
+
+    lightMove 18s ease-in-out infinite;
+
+}
+
+
+@keyframes lightMove{
+
+
+    0%,100%{
+
+        transform:
+
+        translate(0,0);
+
+    }
+
+
+    50%{
+
+        transform:
+
+        translate(350px,250px);
+
+    }
+
+}
+
+
+
+/* Smooth glass text */
+
+.subtitle{
+
+    text-shadow:
+
+    0 1px 5px rgba(255,255,255,.4);
+
+}
+
+
+
+/* Selection style */
+
+::selection{
+
+    background:
+
+    rgba(90,130,255,.35);
+
+}
+/* =========================
+   LIQUID GLASS CONTROLS
+   ========================= */
+
+
+.form{
+
+    margin-top:35px;
+
+}
+
+
+
+label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#222;
+
+}
+
+
+
+/* Glass input */
+
+.input-wrapper{
+
+    position:relative;
+
+}
+
+
+
+.input-wrapper span{
+
+    position:absolute;
+
+    left:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:18px;
+
+    opacity:.7;
+
+}
+
+
+
+input{
+
+    width:100%;
+
+    padding:17px 18px 17px 52px;
+
+
+    border-radius:18px;
+
+
+    border:
+
+    1px solid rgba(255,255,255,.5);
+
+
+    background:
+
+    rgba(255,255,255,.22);
+
+
+    backdrop-filter:
+
+    blur(25px);
+
+
+    -webkit-backdrop-filter:
+
+    blur(25px);
+
+
+    color:#111;
+
+
+    font-size:16px;
+
+
+    outline:none;
+
+
+    box-shadow:
+
+
+    inset 0 1px rgba(255,255,255,.8),
+
+    0 8px 25px rgba(0,0,0,.08);
+
+
+    transition:.3s;
+
+}
+
+
+
+input::placeholder{
+
+    color:rgba(0,0,0,.45);
+
+}
+
+
+
+input:focus{
+
+
+    background:
+
+    rgba(255,255,255,.35);
+
+
+    border-color:white;
+
+
+    box-shadow:
+
+
+    0 0 0 5px rgba(100,140,255,.2),
+
+    inset 0 1px rgba(255,255,255,.9);
+
+
+}
+
+
+
+/* Glass button */
+
+button{
+
+
+    width:100%;
+
+
+    margin-top:20px;
+
+
+    padding:17px;
+
+
+    border-radius:18px;
+
+
+    border:
+
+    1px solid rgba(255,255,255,.55);
+
+
+    background:
+
+
+    linear-gradient(
+
+    135deg,
+
+    rgba(255,255,255,.45),
+
+    rgba(255,255,255,.18)
+
+    );
+
+
+    backdrop-filter:
+
+    blur(30px);
+
+
+    -webkit-backdrop-filter:
+
+    blur(30px);
+
+
+
+    color:#111;
+
+
+    font-size:16px;
+
+
+    font-weight:700;
+
+
+    cursor:pointer;
+
+
+
+    box-shadow:
+
+
+    inset 0 1px rgba(255,255,255,.8),
+
+
+    0 12px 30px rgba(0,0,0,.15);
+
+
+
+    transition:.3s;
+
+
+}
+
+
+
+button:hover{
+
+
+    transform:
+
+    translateY(-3px);
+
+
+    background:
+
+    rgba(255,255,255,.55);
+
+
+    box-shadow:
+
+
+    0 18px 40px rgba(0,0,0,.2);
+
+
+}
+
+
+
+button:active{
+
+    transform:scale(.97);
+
+}
+
+
+
+/* Result glass card */
+
+
+#result{
+
+
+    margin-top:25px;
+
+
+    padding:20px;
+
+
+    min-height:90px;
+
+
+    border-radius:22px;
+
+
+
+    background:
+
+    rgba(255,255,255,.2);
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.45);
+
+
+
+    backdrop-filter:
+
+    blur(25px);
+
+
+
+    -webkit-backdrop-filter:
+
+    blur(25px);
+
+
+
+    box-shadow:
+
+
+    inset 0 1px rgba(255,255,255,.65),
+
+
+    0 10px 30px rgba(0,0,0,.1);
+
+
+
+    white-space:pre-line;
+
+
+    line-height:1.7;
+
+
+    font-size:14px;
+
+
+}
