@@ -1,1 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Discord Lookup</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+
+    font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+
+    background:
+
+    radial-gradient(
+        circle at 15% 15%,
+        #9be7ff,
+        transparent 32%
+    ),
+
+    radial-gradient(
+        circle at 85% 20%,
+        #b7a0ff,
+        transparent 35%
+    ),
+
+    radial-gradient(
+        circle at 80% 85%,
+        #7fffd4,
+        transparent 35%
+    ),
+
+    radial-gradient(
+        circle at 15% 85%,
+        #ffc7e8,
+        transparent 35%
+    ),
+
+    linear-gradient(
+        180deg,
+        #eef8ff,
+        #c9dcff
+    );
+
+}
+
+
+
+/* macOS style window */
+
+.window{
+
+    width:min(92vw,480px);
+
+    padding:24px;
+
+
+    border-radius:32px;
+
+
+    background:
+
+    rgba(255,255,255,.18);
+
+
+    border:
+
+    1px solid rgba(255,255,255,.45);
+
+
+    backdrop-filter:
+
+    blur(35px)
+    saturate(180%);
+
+
+    -webkit-backdrop-filter:
+
+    blur(35px)
+    saturate(180%);
+
+
+
+    box-shadow:
+
+    inset 0 1px rgba(255,255,255,.8),
+
+    0 30px 80px rgba(0,0,0,.2);
+
+
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+
+/* Glass shine */
+
+.window::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.5),
+        transparent 40%
+    );
+
+
+    pointer-events:none;
+
+}
+
+
+
+/* macOS traffic lights */
+
+.titlebar{
+
+    display:flex;
+
+    gap:9px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.light{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+
+
+.red{
+
+    background:#ff5f57;
+
+}
+
+
+.yellow{
+
+    background:#febc2e;
+
+}
+
+
+.green{
+
+    background:#28c840;
+
+}
+
+
+
+/* Content */
+
+.content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+
+.logo{
+
+    width:80px;
+
+    height:80px;
+
+
+    margin:auto;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:24px;
+
+
+    background:
+
+    rgba(255,255,255,.25);
+
+
+    font-size:40px;
+
+}
+
+
+
+h1{
+
+    text-align:center;
+
+    margin-top:20px;
+
+
+    font-size:34px;
+
+    font-weight:800;
+
+}
+
+
+
+.subtitle{
+
+    text-align:center;
+
+    margin-top:10px;
+
+
+    color:#555;
+
+    font-size:15px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="window">
+
+
+    <div class="titlebar">
+
+        <div class="light red"></div>
+
+        <div class="light yellow"></div>
+
+        <div class="light green"></div>
+
+    </div>
+
+
+
+    <div class="content">
+
+
+        <div class="logo">
+            💬
+        </div>
+
+
+        <h1>
+            Discord Lookup
+        </h1>
+
+
+        <p class="subtitle">
+            Find Discord Snowflake creation dates instantly.
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
