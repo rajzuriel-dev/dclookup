@@ -1,52 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Lookup</title>
-    <style>
-        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
-        input, button { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
-        #result { font-weight: bold; margin-top: 15px; white-space: pre-line; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discord Lookup</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+        radial-gradient(circle at top,#5865F2 0%,#313338 35%,#1E1F22 100%);
+    color:white;
+}
+
+.container{
+    width:100%;
+    max-width:430px;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.35);
+    animation:fade .5s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+h2{
+    text-align:center;
+    margin-bottom:8px;
+    font-size:28px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#b5bac1;
+    margin-bottom:28px;
+    font-size:14px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    font-size:15px;
+    border-radius:12px;
+    border:1px solid #444;
+    background:#2B2D31;
+    color:white;
+    outline:none;
+    transition:.2s;
+}
+
+input:focus{
+    border-color:#5865F2;
+    box-shadow:0 0 0 4px rgba(88,101,242,.25);
+}
+
+button{
+    width:100%;
+    margin-top:16px;
+    padding:14px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:#5865F2;
+    color:white;
+    transition:.25s;
+}
+
+button:hover{
+    background:#6D79FF;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(88,101,242,.35);
+}
+
+button:active{
+    transform:translateY(0);
+}
+
+#result{
+    margin-top:22px;
+    padding:15px;
+    border-radius:12px;
+    background:#202225;
+    border-left:4px solid #5865F2;
+    white-space:pre-line;
+    line-height:1.6;
+    min-height:60px;
+    word-break:break-word;
+    color:#dcddde;
+}
+
+.footer{
+    margin-top:18px;
+    text-align:center;
+    color:#888;
+    font-size:12px;
+}
+</style>
 </head>
+
 <body>
 
-    <h2>Discord ID Date Checker</h2>
-    <label for="snowflake">Enter Discord ID:</label>
-    <input type="text" id="snowflake" placeholder="e.g., 1488489535221268563">
-    <button onclick="checkDate()">Find Date</button>
+<div class="container">
 
-    <div id="result"></div>
+<h2>Discord ID Lookup</h2>
+<p class="subtitle">Find when a Discord Snowflake was created.</p>
 
-    <script>
-        function checkDate() {
-            const input = document.getElementById('snowflake').value.trim();
-            const resultDiv = document.getElementById('result');
-            
-            // Validate input is numbers only
-            if (!/^\d+$/.test(input)) {
-                resultDiv.innerText = "Please enter a valid numeric ID.";
-                return;
-            }
+<label for="snowflake">Discord ID</label>
 
-            try {
-                const snowflake = BigInt(input);
-                const timestampMs = Number((snowflake >> 22n) + 1420070400000n);
-                const date = new Date(timestampMs);
+<input
+type="text"
+id="snowflake"
+placeholder="e.g. 1488489535221268563"
+onkeydown="if(event.key==='Enter') checkDate()">
 
-                // Check if date is valid
-                if (isNaN(date.getTime())) {
-                    resultDiv.innerText = "Invalid Discord ID.";
-                    return;
-                }
+<button onclick="checkDate()">
+🔍 Find Date
+</button>
 
-                resultDiv.innerText = `UTC: ${date.toUTCString()}\nLocal: ${date.toLocaleString()}`;
-            } catch (error) {
-                resultDiv.innerText = "Error processing ID.";
-            }
+<div id="result">
+Enter a Discord ID above.
+</div>
+
+<div class="footer">
+Discord Snowflakes contain the account creation timestamp.
+</div>
+
+</div>
+
+<script>
+function checkDate() {
+    const input = document.getElementById('snowflake').value.trim();
+    const resultDiv = document.getElementById('result');
+
+    if (!/^\d+$/.test(input)) {
+        resultDiv.innerText = "Please enter a valid numeric ID.";
+        return;
+    }
+
+    try {
+        const snowflake = BigInt(input);
+        const timestampMs = Number((snowflake >> 22n) + 1420070400000n);
+        const date = new Date(timestampMs);
+
+        if (isNaN(date.getTime())) {
+            resultDiv.innerText = "Invalid Discord ID.";
+            return;
         }
-    </script>
+
+        resultDiv.innerText =
+`UTC: ${date.toUTCString()}
+Local: ${date.toLocaleString()}`;
+
+    } catch (error) {
+        resultDiv.innerText = "Error processing ID.";
+    }
+}
+</script>
 
 </body>
 </html>
